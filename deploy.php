@@ -1,4 +1,5 @@
 <?php
+
 namespace Deployer;
 
 require 'recipe/laravel.php';
@@ -24,6 +25,8 @@ set('allow_anonymous_stats', false);
 
 host('api.medit.id')
     ->stage('production')
+    ->user('hi_fathur_rohman_gmail_com')
+    ->identityFile('/Users/cookies/.ssh/google_compute_engine')
     ->set('deploy_path', '/home/ubuntu/sites/{{application}}');    
     
 // Tasks

@@ -14,7 +14,9 @@ set('repository', 'git@github.com:medit-id/test.git');
 set('git_tty', true); 
 
 // Shared files/dirs between deploys 
-add('shared_files', []);
+add('shared_files', [
+    'database/database.sqlite'
+]);
 add('shared_dirs', []);
 
 // Writable dirs by web server 

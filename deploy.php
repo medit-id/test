@@ -1,10 +1,12 @@
 <?php
 
+namespace Deployer;
 require __DIR__.'/vendor/autoload.php';
 
-with(new \Dotenv\Dotenv(__DIR__))->load();
+# with(new \Dotenv\Dotenv(__DIR__))->load();
+$dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
-namespace Deployer;
 
 require 'recipe/laravel.php';
 
@@ -29,9 +31,9 @@ add('writable_dirs', []);
 set('allow_anonymous_stats', false);
 
 // Hosts
-set('environment', getenv('APP_ENV'));
+set('environment', $_ENV['APP_ENV']);
 
-host(getenv('SSH_HOST'))
+host($_ENV['SSH_HOST'])
     ->stage('{{environment}}')
     ->set('deploy_path', '/home/ubuntu/sites/{{application}}/{{environment}}');    
     

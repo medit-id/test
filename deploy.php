@@ -1,8 +1,13 @@
 <?php
 
+require __DIR__.'/vendor/autoload.php';
+
+with(new \Dotenv\Dotenv(__DIR__))->load();
+
 namespace Deployer;
 
 require 'recipe/laravel.php';
+
 
 // Project name
 set('application', 'api.medit');
@@ -24,12 +29,11 @@ add('writable_dirs', []);
 set('allow_anonymous_stats', false);
 
 // Hosts
+set('environment', getenv('APP_ENV'));
 
-host('api.medit.id')
-    ->stage('production')
-    ->user('hi_fathur_rohman_gmail_com')
-    ->identityFile('/Users/cookies/.ssh/google_compute_engine')
-    ->set('deploy_path', '/home/ubuntu/sites/{{application}}');    
+host(getenv('SSH_HOST'))
+    ->stage('{{environment}}')
+    ->set('deploy_path', '/home/ubuntu/sites/{{application}}/{{environment}}');    
     
 // Tasks
 

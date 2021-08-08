@@ -25,9 +25,9 @@ add('writable_dirs', []);
 set('allow_anonymous_stats', false);
 
 // Hosts
-set('environment', $_ENV['APP_ENV']);
+set('environment', $_ENV['INPUT_APP_ENV']);
 
-host($_ENV['SSH_HOST'])
+host($_ENV['INPUT_SSH_HOST'])
     ->stage('{{environment}}')
     ->set('deploy_path', '/home/ubuntu/sites/{{application}}/{{environment}}');    
     

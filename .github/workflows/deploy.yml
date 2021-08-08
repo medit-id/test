@@ -1,0 +1,31 @@
+name: Deploy 
+
+on:
+  push:
+    branches: [ main, develop ]
+
+jobs:
+  deploy:
+    name: Deploy to cloud
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup PHP
+      uses: shivammathur/setup-php@master
+      with:
+        php-version: '8.0'
+    - name: Install SSH Key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_PRIVATE_KEY  }}
+        known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+        name: id_rsa
+        if_key_exists: replace
+        config: ${{ secrets.SSH_CONFIG }}
+    - name: Install deployer
+      run: |
+        curl -LO https://deployer.org/deployer.phar
+        mv deployer.phar /usr/local/bin/dep
+        chmod +x /usr/local/bin/dep
+    - name: Deploy to cloud
+      run: dep deploy staging 

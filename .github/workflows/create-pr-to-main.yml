@@ -22,6 +22,6 @@ jobs:
       id: split
       with:
         msg: ${{ steps.target_branch.outputs.head }}
-        separator: '/'
+        seperator: '/'
     - name: Echoing
       run: echo "${{ steps.split.outputs._0  }}"

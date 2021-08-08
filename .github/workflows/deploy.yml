@@ -17,10 +17,10 @@ jobs:
     - name: Install SSH Key
       uses: shimataro/ssh-key-action@v2
       with:
-        key: ${{ secret.SSH_PRIVATE_KEY  }}
+        key: ${{ secrets.SSH_PRIVATE_KEY  }}
         name: id_rsa
         if_key_exists: replace
-        config: ${{ secret.SSH_CONFIG }}
+        config: ${{ secrets.SSH_CONFIG }}
     - name: Install deployer
       run: |
         curl -LO https://deployer.org/deployer.phar

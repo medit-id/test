@@ -1,12 +1,6 @@
 <?php
 
 namespace Deployer;
-require __DIR__.'/vendor/autoload.php';
-
-# with(new \Dotenv\Dotenv(__DIR__))->load();
-$dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
-
 
 require 'recipe/laravel.php';
 

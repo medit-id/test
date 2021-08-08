@@ -2,11 +2,11 @@ name: Deploy
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main ]
 
 jobs:
   deploy:
-    name: Deploy to cloud
+    name: Deploy to production server 
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
@@ -14,7 +14,7 @@ jobs:
       uses: shivammathur/setup-php@master
       with:
         php-version: '8.0'
-    - name: Install SSH Key
+    - name: Install SSH key
       uses: shimataro/ssh-key-action@v2
       with:
         key: ${{ secrets.SSH_PRIVATE_KEY  }}
@@ -28,4 +28,4 @@ jobs:
         mv deployer.phar /usr/local/bin/dep
         chmod +x /usr/local/bin/dep
     - name: Deploy to cloud
-      run: dep deploy staging 
+      run: dep deploy production 

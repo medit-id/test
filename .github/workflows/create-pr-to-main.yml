@@ -1,0 +1,14 @@
+name: Deploy 
+
+on:
+  push:
+    branches: [ develop ]
+
+jobs:
+  deploy:
+    name: Create PR to main branch 
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Echo var
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"

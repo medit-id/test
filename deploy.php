@@ -25,12 +25,17 @@ add('writable_dirs', []);
 set('allow_anonymous_stats', false);
 
 // Hosts
-set('environment', $_ENV['INPUT_APP_ENV']);
-
-host($_ENV['INPUT_SSH_HOST'])
-    ->stage('{{environment}}')
-    ->set('deploy_path', '/home/ubuntu/sites/{{application}}/{{environment}}');    
+host('fathur.gcloud')
+    ->stage('development')
+    ->set('deploy_path', '/home/ubuntu/sites/{{application}}/development');    
     
+host('fathur.gcloud')
+    ->stage('production')
+    ->set('deploy_path', '/home/ubuntu/sites/{{application}}/production');    
+
+host('fathur.gcloud')
+    ->stage('staging')
+    ->set('deploy_path', '/home/ubuntu/sites/{{application}}/staging');    
 // Tasks
 
 task('build', function () {

@@ -14,9 +14,16 @@ jobs:
       uses: shivammathur/setup-php@master
       with:
         php-version: '8.0'
-    - name: Deploy
-      uses: deployphp/action@master
+    - name: Install SSH Key
+      uses: shimataro/ssh-key-action@v2
       with:
-        private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-        ssh-config: ${{ secrets.SSH_CONFIG }}
-        dep: deploy ${{ secrets.APP_ENV  }} -v
+        key: ${{ secret.SSH_PRIVATE_KEY  }}
+	if_key_exists: replace
+	config: ${{ secret.SSH_CONFIG }}
+    - name: Install deployer
+      run: |
+        curl -LO https://deployer.org/deployer.phar
+	mv deployer.phar /usr/local/bin/dep
+	chmod +x /usr/local/bin/dep
+    - name: Deploy to cloud
+      run: dep deploy production

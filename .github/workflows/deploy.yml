@@ -8,9 +8,6 @@ jobs:
   deploy:
     name: Deploy to cloud
     runs-on: ubuntu-latest
-    env:
-      APP_ENV: ${{ secrets.APP_ENV }}
-      SSH_HOST: ${{ secrets.SSH_HOST }}
     steps:
     - uses: actions/checkout@v1
     - name: Setup PHP
@@ -32,3 +29,6 @@ jobs:
         chmod +x /usr/local/bin/dep
     - name: Deploy to cloud
       run: dep deploy staging 
+      with:
+        app_env: ${{ secrets.APP_ENV }}
+        ssh_host: ${{ secrets.SSH_HOST }}

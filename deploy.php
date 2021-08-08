@@ -25,12 +25,17 @@ add('writable_dirs', []);
 set('allow_anonymous_stats', false);
 
 // Hosts
-set('environment', $_ENV['INPUT_APP_ENV']);
-
-host($_ENV['INPUT_SSH_HOST'])
-    ->stage('{{environment}}')
-    ->set('deploy_path', '/home/ubuntu/sites/{{application}}/{{environment}}');    
+host('34.101.212.123')
+    ->stage('development')
+    ->set('deploy_path', '/home/ubuntu/sites/{{application}}/development');    
     
+host('34.101.212.123')
+    ->stage('production')
+    ->set('deploy_path', '/home/ubuntu/sites/{{application}}/production');    
+
+host('34.101.212.123')
+    ->stage('staging')
+    ->set('deploy_path', '/home/ubuntu/sites/{{application}}/staging');    
 // Tasks
 
 task('build', function () {

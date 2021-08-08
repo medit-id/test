@@ -29,6 +29,3 @@ jobs:
         chmod +x /usr/local/bin/dep
     - name: Deploy to cloud
       run: dep deploy staging 
-      with:
-        app_env: ${{ secrets.APP_ENV }}
-        ssh_host: ${{ secrets.SSH_HOST }}

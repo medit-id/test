@@ -11,4 +11,9 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Echo var
-      run: echo "${GITHUB_REF#refs/heads/}"
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: |
+        echo "${GITHUB_REF#refs/heads/}"
+        echo "$GITHUB_CONTEXT"
+

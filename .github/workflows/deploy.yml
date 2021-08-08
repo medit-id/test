@@ -22,9 +22,6 @@ jobs:
         name: id_rsa
         if_key_exists: replace
         config: ${{ secrets.SSH_CONFIG }}
-      env:
-        APP_ENV: ${{ secrets.APP_ENV }}
-        SSH_HOST: ${{ secrets.SSH_HOST }}
     - name: Install deployer
       run: |
         curl -LO https://deployer.org/deployer.phar
@@ -32,3 +29,6 @@ jobs:
         chmod +x /usr/local/bin/dep
     - name: Deploy to cloud
       run: dep deploy staging 
+      env:
+        APP_ENV: ${{ secrets.APP_ENV }}
+        SSH_HOST: ${{ secrets.SSH_HOST }}

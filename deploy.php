@@ -25,15 +25,15 @@ add('writable_dirs', []);
 set('allow_anonymous_stats', false);
 
 // Hosts
-host('34.101.212.123')
+host('fathur.gcloud')
     ->stage('development')
     ->set('deploy_path', '/home/ubuntu/sites/{{application}}/development');    
     
-host('34.101.212.123')
+host('fathur.gcloud')
     ->stage('production')
     ->set('deploy_path', '/home/ubuntu/sites/{{application}}/production');    
 
-host('34.101.212.123')
+host('fathur.gcloud')
     ->stage('staging')
     ->set('deploy_path', '/home/ubuntu/sites/{{application}}/staging');    
 // Tasks

@@ -18,6 +18,7 @@ jobs:
       uses: shimataro/ssh-key-action@v2
       with:
         key: ${{ secret.SSH_PRIVATE_KEY  }}
+	name: id_rsa
 	if_key_exists: replace
 	config: ${{ secret.SSH_CONFIG }}
     - name: Install deployer

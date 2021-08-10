@@ -1,15 +1,18 @@
-name: Create PR to main 
+name: Create PR to develop 
 
 on:
   pull_request:
-    branches: [ develop ]
+    branches: [ main ]
 
 jobs:
   deploy:
     name: Create PR to main branch 
     runs-on: ubuntu-latest
+
     steps:
+
     - uses: actions/checkout@v1
+
     - name: Output target branch 
       id: target_branch
       run: |
@@ -17,11 +20,21 @@ jobs:
         # echo "$GITHUB_CONTEXT"
         echo "::set-output name=head::${{ github.head_ref }}"
         # echo "${{ github.base_ref }}"
+
     - name: Get branching type
       uses: jungwinter/split@v1
       id: split
       with:
         msg: ${{ steps.target_branch.outputs.head }}
-        seperator: '/'
+        seperator: '/' # This should be separator, typo in the codebase
+
     - name: Echoing
       run: echo "${{ steps.split.outputs._0  }}"
+
+    - name: Create new PR to develop
+      if: ${{ steps.split.outputs._0 == 'bug' && github.base_ref == 'main' }}
+      uses: peter-evans/create-pull-request@v3
+      with:
+        labels: ['Hotfix']
+        branch: develop
+        base: ${{ github.head_ref }}
